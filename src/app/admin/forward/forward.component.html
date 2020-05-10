@@ -1,0 +1,36 @@
+<button (click)="ngxSmartModalService.getModal('forward').open()">Créer</button>
+<ag-grid-angular
+  #grid
+  style="width: 800px; height: 500px;"
+  class="ag-theme-alpine"
+  [rowData]="rowData"
+  [columnDefs]="columnDefs"
+  rowSelection="multiple"
+  [frameworkComponents]="frameworkComponents"
+>
+</ag-grid-angular>
+
+<ngx-smart-modal #forward identifier="forward">
+  <form [formGroup]="form">
+    <label for="description" ></label>
+    <input type="text" id="description" formControlName="description" />
+
+    <label for="elementTypeMenu">Menu</label>
+    <input type="radio" id="elementTypeMenu" value="Menu" name="element" (change)="valueList($event)"/>
+    <label for="elementTypeMenu">ligne de Produit</label>
+    <input type="radio" id="elementTypeProductLine" value="ligne de Produit" name="element"
+           (change)="valueList($event)"/>
+
+    <select formControlName="menuId" id="listMenu" *ngIf="element === 'Menu' && list">
+      <option *ngFor="let menu of list" [value]="menu.id">{{menu.name}}</option>
+    </select>
+
+
+      <select formControlName="productLineId" id="listLine" *ngIf="element === 'Line' && list">
+        <option *ngFor="let line of list" [value]="line.id">{{line.__product__.name +" "+line.desc_size}}</option>
+      </select>
+
+  </form>
+
+  <button (click)="createForward(); forward.close()">Créer</button>
+</ngx-smart-modal>
