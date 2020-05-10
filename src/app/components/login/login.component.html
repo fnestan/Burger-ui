@@ -1,0 +1,12 @@
+<div>
+  <form [formGroup]="form">
+    <label>
+      <input required type="email" formControlName="email"/>
+    </label>
+    <label>
+      <input required type="password" formControlName="password"/>
+    </label>
+    <button (click)="login()"> Connexion</button>
+  </form>
+  <div *ngIf="error">{{error}}</div>
+</div>
