@@ -10,13 +10,14 @@ import { MenuComponent } from './components/menu/menu.component';
 import { LoginComponent } from './components/login/login.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgxSmartModalModule} from 'ngx-smart-modal';
+import { DiscountComponent } from './admin/discount/discount.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     MenuComponent,
-    LoginComponent
+    LoginComponent,
   ],
   imports: [
     BrowserModule,

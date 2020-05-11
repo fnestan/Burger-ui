@@ -1,4 +1,4 @@
-<button (click)="ngxSmartModalService.getModal('forward').open()">Créer</button>
+<button (click)="ngxSmartModalService.getModal('discount').open()">Créer</button>
 <ag-grid-angular
   #grid
   style="width: 800px; height: 500px;"
@@ -10,10 +10,10 @@
 >
 </ag-grid-angular>
 
-<ngx-smart-modal #forward identifier="forward">
+<ngx-smart-modal #discount identifier="discount">
   <form [formGroup]="form">
-    <label for="description" ></label>
-    <input type="text" id="description" formControlName="description" />
+    <label for="discount" ></label>
+    <input type="text" id="discount" formControlName="discountPrice" />
 
     <label for="elementTypeMenu">Menu</label>
     <input type="radio" id="elementTypeMenu" value="Menu" name="element" (change)="valueList($event)"/>
@@ -26,9 +26,9 @@
     </select>
 
 
-      <select formControlName="productLineId" id="listLine" *ngIf="element === 'Line' && list">
-        <option *ngFor="let line of list" [value]="line.id">{{line.__product__.name +" "+line.desc_size}}</option>
-      </select>
+    <select formControlName="productLineId" id="listLine" *ngIf="element === 'Line' && list">
+      <option *ngFor="let line of list" [value]="line.id">{{line.__product__.name +" "+line.desc_size}}</option>
+    </select>
   </form>
-  <button (click)="createForward(); forward.close()">Créer</button>
+  <button (click)="createForward(); discount.close()">Créer</button>
 </ngx-smart-modal>

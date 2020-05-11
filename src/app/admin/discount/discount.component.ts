@@ -1,26 +1,25 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {ForwardService} from '../../services/forward.service';
-import {Forward} from '../../interfaces/Forward';
-import {AgGridAngular} from 'ag-grid-angular';
-import {User} from '../../interfaces/user';
-import {ButtonRendererComponent} from '../button-renderer/button-renderer.component';
+import {DiscountService} from '../../services/discount.service';
 import {NgxSmartModalService} from 'ngx-smart-modal';
 import {MenuService} from '../../services/menu.service';
 import {ProductLineService} from '../../services/product-line.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ButtonRendererComponent} from '../button-renderer/button-renderer.component';
+import {AgGridAngular} from 'ag-grid-angular';
+import {Forward} from '../../interfaces/Forward';
+import {User} from '../../interfaces/user';
 
 @Component({
-  selector: 'app-forward',
-  templateUrl: './forward.component.html',
-  styleUrls: ['./forward.component.scss']
+  selector: 'app-discount',
+  templateUrl: './discount.component.html',
+  styleUrls: ['./discount.component.scss']
 })
-export class ForwardComponent implements OnInit {
-
+export class DiscountComponent implements OnInit {
   @ViewChild('grid') grid: AgGridAngular;
 
   columnDefs = [
     {headerName: 'Element', field: 'element', sortable: true, filter: true},
-    {headerName: 'Description', field: 'description', sortable: true, filter: true, editable: true},
+    {headerName: 'prix', field: 'discount', sortable: true, filter: true, editable: true},
     {
       headerName: '',
       cellRenderer: 'buttonRenderer',
@@ -42,13 +41,12 @@ export class ForwardComponent implements OnInit {
   rowData = [];
   frameworkComponents: {};
 
-  forwardList: Forward[];
   list: any[];
   element: string;
 
   form: FormGroup;
 
-  constructor(private forwardService: ForwardService,
+  constructor(private discountService: DiscountService,
               public ngxSmartModalService: NgxSmartModalService,
               private menuService: MenuService,
               private productLineService: ProductLineService,
@@ -57,30 +55,31 @@ export class ForwardComponent implements OnInit {
       buttonRenderer: ButtonRendererComponent,
     };
     this.form = formBuilder.group({
-      description: ['', Validators.required],
+      discountPrice: ['', Validators.required],
       productLineId: [],
       menuId: [],
     });
   }
 
   ngOnInit(): void {
-    this.getAllForwards();
+    this.getAllDiscounts();
   }
 
-  getAllForwards(): void {
-    this.forwardService.getAllForwerds().subscribe(forwards => {
+
+  getAllDiscounts(): void {
+    this.discountService.getAllDiscount().subscribe(discounts => {
         const data = [];
-        forwards.forEach(forward => {
+        discounts.forEach(discount => {
           let element;
-          if (forward.menu) {
-            element = forward.menu.name;
+          if (discount.menu) {
+            element = discount.menu.name;
           } else {
-            element = `${forward.prductline.__product__.name} ${forward.prductline.desc_size}`;
+            element = `${discount.productLine.__product__.name} ${discount.productLine.desc_size}`;
           }
           data.push({
-            id: forward.id,
+            id: discount.id,
             element,
-            description: forward.description
+            discount: discount.discount + ' €'
           });
         });
         this.rowData = data;
@@ -91,13 +90,17 @@ export class ForwardComponent implements OnInit {
   deleteRow(event: any): void {
     const user: User = JSON.parse(localStorage.getItem('user'));
     const token = user.token;
-    this.forwardService.deleteForward(event.rowData.id, token).subscribe(() => this.getAllForwards());
+    this.discountService.deleteDiscount(token, event.rowData.id).subscribe(() => this.getAllDiscounts());
   }
 
   updateRow(event: any): void {
     const user: User = JSON.parse(localStorage.getItem('user'));
     const token = user.token;
-    this.forwardService.updateForward(event.rowData.id, (event.rowData as FormData), token).subscribe(() => this.getAllForwards());
+    const data: any = {
+      discount: event.rowData.discount.split(' ')[0]
+    };
+    console.log(data);
+    this.discountService.updateIngredient(token, (data as FormData), event.rowData.id).subscribe(() => this.getAllDiscounts());
   }
 
   valueList(event: any): void {
@@ -123,9 +126,10 @@ export class ForwardComponent implements OnInit {
     if (this.form.valid) {
       const user: User = JSON.parse(localStorage.getItem('user'));
       const token = user.token;
-      this.forwardService.createForward(token, this.form.value).subscribe(() => {
-        this.getAllForwards();
+      console.log(this.form.value);
+      this.discountService.createDiscount(token, this.form.value).subscribe(() => {
         this.form.reset();
+        this.getAllDiscounts();
       });
     }
   }
