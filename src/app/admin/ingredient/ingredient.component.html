@@ -1,0 +1,35 @@
+
+<section class="section">
+  <div class="container">
+    <div class="level">
+      <div class="level-left">
+        <div class="level-item">
+          <h3 class="title is-4">
+            Ingrédients
+          </h3>
+        </div>
+      </div>
+      <div class="level-right">
+        <div class="level_item">
+          <button class="button is-primary" (click)="addIngredient()">
+            <span class="icon is-small">
+              <i class="fas fa-plus"></i>
+            </span>
+            <span>Créer</span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <ag-grid-angular
+      #grid
+      style="width: 100%; height: 500px;"
+      class="ag-theme-alpine"
+      [rowData]="rowData"
+      [columnDefs]="columnDefs"
+      rowSelection="multiple"
+      [frameworkComponents]="frameworkComponents"
+    >
+    </ag-grid-angular>
+  </div>
+</section>
+

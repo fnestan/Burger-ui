@@ -18,6 +18,8 @@ import { LineDetailComponent } from './admin/line-detail/line-detail.component';
 import { DiscountCreationComponent } from './admin/discount-creation/discount-creation.component';
 import {ToastrModule} from 'ngx-toastr';
 import { ForwardCreationComponent } from './admin/forward-creation/forward-creation.component';
+import { IngredientComponent } from './admin/ingredient/ingredient.component';
+import { IngredientCreationComponent } from './admin/ingredient-creation/ingredient-creation.component';
 
 @NgModule({
   declarations: [

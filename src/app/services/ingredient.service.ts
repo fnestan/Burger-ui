@@ -19,7 +19,7 @@ export class IngredientService {
 
   createIngredient(token: string, formData: FormData): Observable<Ingredient> {
     const headers = {authorization: 'Bearer ' + token};
-    return this.httpClient.post<Ingredient>('http://localhost:3000/ingredients/', {headers});
+    return this.httpClient.post<Ingredient>('http://localhost:3000/ingredients', formData, {headers});
 
   }
 
@@ -28,9 +28,4 @@ export class IngredientService {
     return this.httpClient.put<Ingredient>('http://localhost:3000/ingredients/' + id, formData, {headers});
   }
 
-  deleteIngredient(token: string, id: number): void {
-    const headers = {authorization: 'Bearer ' + token};
-    this.httpClient.delete('http://localhost:3000/ingredients/' + id, {headers});
-
-  }
 }

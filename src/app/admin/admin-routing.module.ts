@@ -9,6 +9,7 @@ import {TypeComponent} from './type/type.component';
 import {TypeDetailComponent} from './type-detail/type-detail.component';
 import {ProductDetailComponent} from './product-detail/product-detail.component';
 import {LineDetailComponent} from './line-detail/line-detail.component';
+import {IngredientComponent} from './ingredient/ingredient.component';
 
 
 const routes: Routes = [
@@ -21,6 +22,7 @@ const routes: Routes = [
   {path: 'type/:id', component: TypeDetailComponent},
   {path: 'product/:id', component: ProductDetailComponent},
   {path: 'line/:id', component: LineDetailComponent},
+  {path: 'ingredients', component: IngredientComponent},
 ];
 
 @NgModule({

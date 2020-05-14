@@ -19,6 +19,8 @@ import {LineDetailComponent} from './line-detail/line-detail.component';
 import {ToastrModule} from 'ngx-toastr';
 import {DiscountCreationComponent} from './discount-creation/discount-creation.component';
 import {ForwardCreationComponent} from './forward-creation/forward-creation.component';
+import {IngredientComponent} from './ingredient/ingredient.component';
+import {IngredientCreationComponent} from './ingredient-creation/ingredient-creation.component';
 
 
 @NgModule({
@@ -35,6 +37,8 @@ import {ForwardCreationComponent} from './forward-creation/forward-creation.comp
     LineDetailComponent,
     DiscountCreationComponent,
     ForwardCreationComponent,
+    IngredientComponent,
+    IngredientCreationComponent,
   ],
   imports: [
     CommonModule,
