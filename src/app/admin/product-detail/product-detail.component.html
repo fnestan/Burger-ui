@@ -1,0 +1,37 @@
+<div contenteditable (blur)="onNameChange($event.target.innerHTML)">
+  {{product.name}}
+</div>
+<div>
+  <select (blur)="onNameChange2($event.target.value)">
+    <option *ngFor="let t of list" [value]="t.id">{{t.label }}</option>
+  </select>
+</div>
+
+<button (click)="updateProduct();">Modifier</button>
+
+<ag-grid-angular
+  #grid
+  style="width: 800px; height: 500px;"
+  class="ag-theme-alpine"
+  [rowData]="rowData"
+  [columnDefs]="columnDefs"
+  rowSelection="multiple"
+  [frameworkComponents]="frameworkComponents"
+>
+</ag-grid-angular>
+<button (click)="ngxSmartModalService.getModal('line').open(); chargerList()">Créer</button>
+
+<ngx-smart-modal #line identifier="line">
+  <form [formGroup]="form">
+    <label for="desc_size">ligne: </label>
+    <input type="text" id="desc_size" formControlName="desc_size"/>
+    <label for="price">Prix: </label>
+    <input type="price" id="price" formControlName="price"/>
+    <label for="orderable"> commandable : </label>
+    <input type="checkbox" id="orderable" formControlName="orderable"/>
+    <select formControlName="productId" id="productId">
+      <option *ngFor="let prd of prds" [value]="prd.id">{{prd.name }}</option>
+    </select>
+  </form>
+  <button (click)="newType(); line.close()">Créer</button>
+</ngx-smart-modal>

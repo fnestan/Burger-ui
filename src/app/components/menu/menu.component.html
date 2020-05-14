@@ -1,0 +1,26 @@
+<div class="container">
+  <div *ngIf="menu; else menusList">
+    <div class="card">
+      <h3>{{menu.name}}</h3>
+      <p>{{menu.price}}</p>
+      <ul>
+        <li *ngFor="let prd of menu.productLines">
+          {{prd.__product__.name}}
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <ng-template #menusList>
+    <div class="card" *ngFor="let menu of menuList">
+      <h3>{{menu.name}}</h3>
+      <p>{{menu.price}}</p>
+      <ul>
+        <li *ngFor="let prd of menu.productLines">
+          {{prd.__product__.name}}
+        </li>
+      </ul>
+    </div>
+  </ng-template>
+
+</div>

@@ -1,0 +1,20 @@
+<ag-grid-angular
+  #grid
+  style="width: 800px; height: 500px;"
+  class="ag-theme-alpine"
+  [rowData]="rowData"
+  [columnDefs]="columnDefs"
+  rowSelection="multiple"
+  [frameworkComponents]="
+  frameworkComponents"
+>
+</ag-grid-angular>
+<button (click)="ngxSmartModalService.getModal('type').open()">Créer</button>
+
+<ngx-smart-modal #type identifier="type">
+  <form [formGroup]="form">
+    <label for="label"></label>
+    <input type="text" id="label" formControlName="label"/>
+  </form>
+  <button (click)="newType(); type.close()">Créer</button>
+</ngx-smart-modal>

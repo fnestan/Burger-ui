@@ -1,6 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ForwardService} from '../../services/forward.service';
-import {Forward} from '../../interfaces/Forward';
 import {AgGridAngular} from 'ag-grid-angular';
 import {User} from '../../interfaces/user';
 import {ButtonRendererComponent} from '../button-renderer/button-renderer.component';
@@ -8,6 +7,8 @@ import {NgxSmartModalService} from 'ngx-smart-modal';
 import {MenuService} from '../../services/menu.service';
 import {ProductLineService} from '../../services/product-line.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {DiscountCreationComponent} from '../discount-creation/discount-creation.component';
+import {ForwardCreationComponent} from '../forward-creation/forward-creation.component';
 
 @Component({
   selector: 'app-forward',
@@ -42,7 +43,6 @@ export class ForwardComponent implements OnInit {
   rowData = [];
   frameworkComponents: {};
 
-  forwardList: Forward[];
   list: any[];
   element: string;
 
@@ -70,6 +70,7 @@ export class ForwardComponent implements OnInit {
   getAllForwards(): void {
     this.forwardService.getAllForwerds().subscribe(forwards => {
         const data = [];
+        console.log(forwards);
         forwards.forEach(forward => {
           let element;
           if (forward.menu) {
@@ -100,33 +101,11 @@ export class ForwardComponent implements OnInit {
     this.forwardService.updateForward(event.rowData.id, (event.rowData as FormData), token).subscribe(() => this.getAllForwards());
   }
 
-  valueList(event: any): void {
-    this.list = [];
-    if (event.target.value === 'Menu') {
-      this.menuService.getAllMenu().subscribe(data => {
-        this.list = data;
-      });
-      this.element = 'Menu';
-    } else {
-      const user: User = JSON.parse(localStorage.getItem('user'));
-      const token = user.token;
-      this.productLineService.getAllProductLine(token).subscribe(data => {
-          this.list = data;
-        }
-      );
-      this.element = 'Line';
-
-    }
-  }
-
-  createForward() {
-    if (this.form.valid) {
-      const user: User = JSON.parse(localStorage.getItem('user'));
-      const token = user.token;
-      this.forwardService.createForward(token, this.form.value).subscribe(() => {
-        this.getAllForwards();
-        this.form.reset();
-      });
-    }
+  addForward() {
+    const modal = this.ngxSmartModalService.create('forward', ForwardCreationComponent);
+    modal.onCloseFinished.subscribe(() => {
+      // TODO : Update grid
+    });
+    modal.open();
   }
 }

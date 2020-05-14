@@ -5,7 +5,7 @@ import { ICellRendererParams, IAfterGuiAttachedParams } from 'ag-grid-community'
 @Component({
   selector: 'app-button-renderer',
   template: `
-    <button type="button" (click)="onClick($event)">{{label}}</button>
+    <button class="button" type="button" (click)="onClick($event)">{{label}}</button>
     `
 })
 

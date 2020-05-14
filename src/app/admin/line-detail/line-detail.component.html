@@ -1,0 +1,56 @@
+<div contenteditable (blur)="ondescSizeChange($event.target.innerHTML)">
+  {{line.desc_size}}
+</div>
+<div contenteditable (blur)="onPriceChange($event.target.innerHTML)">
+  {{line.price}}
+</div>
+<div>
+  <input type="checkbox" checked *ngIf="line.orderable; else noOrderable"
+         (blur)="onOrderableChange($event.target.innerHTML)">
+</div>
+<div>
+  <select (blur)="onNameChange2($event.target.value)">
+    <option *ngFor="let prd of prds" [value]="prd.id">{{prd.name }}</option>
+  </select>
+</div>
+<button (click)="updateLine();">Modifier</button>
+<ng-template #noOrderable>
+  <div>
+    <input type="checkbox" contenteditable (blur)="onOrderableChange($event.target.innerHTML)">
+  </div>
+</ng-template>
+
+
+<ag-grid-angular
+  #grid
+  style="width: 800px; height: 500px;"
+  class="ag-theme-alpine"
+  [rowData]="rowData"
+  [columnDefs]="columnDefs"
+  rowSelection="multiple"
+  [frameworkComponents]="frameworkComponents"
+>
+</ag-grid-angular>
+<button (click)="ngxSmartModalService.getModal('recipe').open(); prepareSelect()">Créer</button>
+
+<ngx-smart-modal #recipe identifier="recipe">
+  <form [formGroup]="form">
+    <label for="quantity"></label>
+    <input type="text" id="quantity" formControlName="quantity"/>
+    <label for="quantity"></label>
+    <input type="checkbox" id="removable" formControlName="removable"/>
+    <select formControlName="unitId" id="unitId">
+      <option *ngFor="let unit of units" [value]="unit.id">{{unit.name }}</option>
+    </select>
+
+    <select formControlName="ingredientId" id="ingredientId">
+      <option *ngFor="let ingredient of ingredients" [value]="ingredient.id">{{ingredient.name }}</option>
+    </select>
+
+    <select formControlName="productLineId" id="productLineId">
+      <option *ngFor="let line of lineList" [value]="line.id">{{line.desc_size }}</option>
+    </select>
+
+  </form>
+  <button (click)="newRecipe(); recipe.close()">Créer</button>
+</ngx-smart-modal>

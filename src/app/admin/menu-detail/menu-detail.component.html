@@ -1,0 +1,85 @@
+<section class="section">
+  <div class="container">
+    <div class="level">
+      <div class="level-left">
+        <div class="level-item">
+          <h3 class="title is-4">
+            Ajouter un menu
+          </h3>
+        </div>
+      </div>
+    </div>
+
+    <div class="box">
+      <form [formGroup]="form">
+        <div class="field">
+          <div class="control">
+            <label class="label">Nom</label>
+            <input class="input" type="text" id="name" formControlName="name"/>
+          </div>
+        </div>
+        <label for="name"></label>
+
+
+        <div class="field">
+          <div class="control">
+            <label class="label">Prix</label>
+            <input class="input" type="text" id="price" formControlName="price"/>
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="control">
+            <label class="label">Prix (en XL)</label>
+            <input class="input" type="text" id="priceXl" formControlName="priceXl"/>
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="control">
+            <label class="checkbox">
+              <input type="checkbox" id="orderable" formControlName="orderable"/>
+              Commandable
+            </label>
+          </div>
+        </div>
+
+        <button class="button" (click)="updateMenu()">Enregistrer</button>
+      </form>
+    </div>
+
+
+    <ag-grid-angular
+      #grid
+      style="width: 100%; height: 500px;"
+      class="ag-theme-alpine"
+      [rowData]="rowData"
+      [columnDefs]="columnDefs"
+      rowSelection="multiple"
+      [frameworkComponents]="frameworkComponents"
+    >
+    </ag-grid-angular>
+
+    <button class="button" (click)="ngxSmartModalService.getModal('line').open();callList()">Ajouter Ligne de produit
+    </button>
+
+
+  </div>
+</section>
+
+<ngx-smart-modal #line identifier="line">
+  <form [formGroup]="formline">
+    <div class="field">
+      <label class="label">Ligne de produit</label>
+      <div class="control">
+        <div class="select">
+          <select formControlName="productLineId" id="listLine">
+            <option *ngFor="let line of list"
+                    [value]="line.id">{{line.__product__.name + " " + line.desc_size}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <button class="button is-primary" (click)="addRow();line.close()">Créer</button>
+  </form>
+</ngx-smart-modal>

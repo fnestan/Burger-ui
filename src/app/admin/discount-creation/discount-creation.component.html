@@ -1,0 +1,56 @@
+<h4 class="title is-5">Créer une réduction</h4>
+
+<form [formGroup]="form">
+  <div class="field">
+    <label class="label">Montant</label>
+    <div class="control">
+      <input class="input" [ngClass]="{ 'is-danger': isSubmitted && form.controls.discountPrice.errors?.required }"
+             type="text" inputmode="numeric" placeholder="Réduction" formControlName="discountPrice" required>
+    </div>
+    <p class="help is-danger" *ngIf="isSubmitted && form.controls.discountPrice.errors?.required">Ce champ est
+      obligatoire</p>
+  </div>
+  <div class="field">
+    <label class="label">Élément où appliquer la réduction</label>
+    <div class="control">
+      <label class="radio">
+        <input type="radio" name="question" value="menu" (change)="applyDiscountOn($event)" checked>
+        Menu
+      </label>
+      <label class="radio">
+        <input type="radio" name="question" value="productLine" (change)="applyDiscountOn($event)">
+        Produit
+      </label>
+    </div>
+  </div>
+  <div class="field" *ngIf="element">
+    <label class="label">{{ element.label }}</label>
+    <div class="control">
+      <div class="select"
+           [ngClass]="{ 'is-danger': isSubmitted && form.controls.menuId.errors?.required }"
+           *ngIf="element.value === 'menu'; else productLine">
+        <select formControlName="menuId">
+          <option [value]="menu.id" *ngFor="let menu of list">{{menu.name}}</option>
+        </select>
+      </div>
+      <ng-template #productLine>
+        <div class="select"
+             [ngClass]="{ 'is-danger': isSubmitted && form.controls.productLineId.errors?.required }">
+          <select formControlName="productLineId">
+            <option [value]="line.id" *ngFor="let line of list">{{line.desc_size}}</option>
+          </select>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+  <div class="field is-grouped modal-buttons">
+    <div class="control">
+      <button class="button is-link" [ngClass]="{ 'is-loading': isSubmitted && isLoading }" (click)="createDiscount()">
+        Appliquer
+      </button>
+    </div>
+    <div class="control">
+      <button class="button is-link is-light" (click)="close()">Annuler</button>
+    </div>
+  </div>
+</form>

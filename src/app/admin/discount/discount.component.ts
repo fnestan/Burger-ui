@@ -8,6 +8,7 @@ import {ButtonRendererComponent} from '../button-renderer/button-renderer.compon
 import {AgGridAngular} from 'ag-grid-angular';
 import {Forward} from '../../interfaces/Forward';
 import {User} from '../../interfaces/user';
+import {DiscountCreationComponent} from '../discount-creation/discount-creation.component';
 
 @Component({
   selector: 'app-discount',
@@ -41,24 +42,12 @@ export class DiscountComponent implements OnInit {
   rowData = [];
   frameworkComponents: {};
 
-  list: any[];
-  element: string;
-
-  form: FormGroup;
-
   constructor(private discountService: DiscountService,
-              public ngxSmartModalService: NgxSmartModalService,
-              private menuService: MenuService,
-              private productLineService: ProductLineService,
-              private formBuilder: FormBuilder) {
+              public ngxSmartModalService: NgxSmartModalService) {
     this.frameworkComponents = {
       buttonRenderer: ButtonRendererComponent,
     };
-    this.form = formBuilder.group({
-      discountPrice: ['', Validators.required],
-      productLineId: [],
-      menuId: [],
-    });
+
   }
 
   ngOnInit(): void {
@@ -99,38 +88,14 @@ export class DiscountComponent implements OnInit {
     const data: any = {
       discount: event.rowData.discount.split(' ')[0]
     };
-    console.log(data);
     this.discountService.updateIngredient(token, (data as FormData), event.rowData.id).subscribe(() => this.getAllDiscounts());
   }
 
-  valueList(event: any): void {
-    this.list = [];
-    if (event.target.value === 'Menu') {
-      this.menuService.getAllMenu().subscribe(data => {
-        this.list = data;
-      });
-      this.element = 'Menu';
-    } else {
-      const user: User = JSON.parse(localStorage.getItem('user'));
-      const token = user.token;
-      this.productLineService.getAllProductLine(token).subscribe(data => {
-          this.list = data;
-        }
-      );
-      this.element = 'Line';
-
-    }
-  }
-
-  createForward() {
-    if (this.form.valid) {
-      const user: User = JSON.parse(localStorage.getItem('user'));
-      const token = user.token;
-      console.log(this.form.value);
-      this.discountService.createDiscount(token, this.form.value).subscribe(() => {
-        this.form.reset();
-        this.getAllDiscounts();
-      });
-    }
+  addDiscount() {
+    const modal = this.ngxSmartModalService.create('discount', DiscountCreationComponent);
+    modal.onCloseFinished.subscribe(() => {
+      // TODO : Update grid
+    });
+    modal.open();
   }
 }

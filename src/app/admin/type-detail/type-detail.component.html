@@ -1,0 +1,26 @@
+<div contenteditable (input)="onNameChange($event.target.innerHTML)">
+  {{type.label}}
+</div>
+<button (click)="updateType();">Modifier</button>
+<ag-grid-angular
+  #grid
+  style="width: 800px; height: 500px;"
+  class="ag-theme-alpine"
+  [rowData]="rowData"
+  [columnDefs]="columnDefs"
+  rowSelection="multiple"
+  [frameworkComponents]="frameworkComponents"
+>
+</ag-grid-angular>
+<button (click)="ngxSmartModalService.getModal('product').open(); chargerList()">Créer</button>
+
+<ngx-smart-modal #product identifier="product">
+  <form [formGroup]="form">
+    <label for="name"></label>
+    <input type="text" id="name" formControlName="name"/>
+    <select formControlName="typeId" id="typeId">
+      <option *ngFor="let t of list" [value]="t.id">{{t.label }}</option>
+    </select>
+  </form>
+  <button (click)="newProduct(); product.close()">Créer</button>
+</ngx-smart-modal>

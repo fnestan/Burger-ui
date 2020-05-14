@@ -1,7 +1,11 @@
 @import "~ag-grid-community/src/styles/ag-grid.scss";
 @import "~ag-grid-community/src/styles/ag-theme-alpine/sass/ag-theme-alpine-mixin.scss";
 @import "~ngx-smart-modal/ngx-smart-modal";
+$family-sans-serif: 'Source Sans Pro';
+$primary: #4b78ff;
 
+@import '~bulma/bulma';
+@import '~ngx-toastr/toastr';
 .ag-theme-alpine {
   @include ag-theme-alpine();
 }

@@ -1,0 +1,7 @@
+<div class="container">
+  <div class="card" *ngFor="let forward of forwardList" [routerLink]="['menus',forward.menu.id]">
+    <h3>{{forward.menu?forward.menu.name:forward.prductline.product.name}}</h3>
+    <p>{{forward.description}}</p>
+  </div>
+
+</div>
