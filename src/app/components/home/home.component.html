@@ -1,7 +1,98 @@
-<div class="container">
-  <div class="card" *ngFor="let forward of forwardList" [routerLink]="['menus',forward.menu.id]">
-    <h3>{{forward.menu?forward.menu.name:forward.prductline.product.name}}</h3>
-    <p>{{forward.description}}</p>
-  </div>
+<app-menu-bar></app-menu-bar>
 
-</div>
+<section class="hero is-link is-fullheight-with-navbar">
+  <div class="hero-body">
+    <div class="container">
+      <p class="title">
+        Sa sauce barbecue. <br>
+        Son fromage intense. <br>
+        Son bacon croustillant. <br>
+        Le Double XXL Bacon est de retour. <br>
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h4 class="title is-4">
+      Au menu cette semaine...
+    </h4>
+    <div class="columns">
+      <div class="column" *ngFor="let forward of forwardList">
+        <div class="card">
+          <div class="card-content">
+            <h4 class="title is-4">{{ forward.menu ? forward.menu.name : forward.prductline.desc_size }}</h4>
+            <div class="level">
+              <div class="level-left">
+                <b class="is-size-4">{{ forward.menu ? forward.menu.price : forward.prductline.price }} € </b>
+              </div>
+              <div class="level-right">
+                <button class="button is-primary" (click)="order(forward.menu ? forward.menu : forward.prductline)">Commander</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h4 class="title is-4">
+      Nos promotions
+    </h4>
+    <div class="columns">
+      <div class="column" *ngFor="let discount of discountList">
+        <div class="card">
+          <div class="card-content">
+            <h4 class="title is-4">{{ discount.menu ? discount.menu.name : discount.productLine.desc_size }}</h4>
+            <ul *ngIf="discount.menu">
+              <li *ngFor="let product of discount.menu.productLines">{{ product.desc_size }}</li>
+            </ul>
+            <br>
+            <div class="level">
+              <div class="level-left">
+                <b class="is-size-4">{{ discount.menu ? discount.menu.price : discount.productLine.price }} €</b>
+              </div>
+              <div class="level-right">
+                <button class="button is-primary" (click)="order(discount.menu ? discount.menu : discount.productLine)">Commander</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container">
+    <h4 class="title is-4">
+      Nos menus
+    </h4>
+    <div class="columns">
+      <div class="column" *ngFor="let menu of menuList">
+        <div class="card">
+          <div class="card-content">
+            <h4 class="title is-4">{{ menu.name }}</h4>
+            <ul>
+              <li *ngFor="let product of menu.productLines">{{ product.desc_size }}</li>
+            </ul>
+            <br>
+            <div class="level">
+              <div class="level-left">
+                <b class="is-size-4">{{ menu.price }} €</b>
+              </div>
+              <div class="level-right">
+                <button class="button is-primary" (click)="order(menu)">Commander</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

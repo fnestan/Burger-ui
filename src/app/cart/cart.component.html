@@ -1,0 +1,48 @@
+<section class="section">
+  <div class="container">
+    <div class="level">
+      <div class="level-left">
+        <div class="level-item">
+          <h3 class="title is-4">
+            Mon panier
+          </h3>
+        </div>
+      </div>
+      <div class="level-right">
+        <div class="level_item">
+          <button class="button is-primary" (click)="order()">
+            <span class="icon is-small">
+              <i class="fas fa-plus"></i>
+            </span>
+            <span>Commander</span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <table class="table">
+      <thead>
+        <th>Description</th>
+        <th>Prix</th>
+        <th>XL</th>
+        <th></th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of cart">
+          <td>{{ order.desc_size ? order.desc_size : order.name }}</td>
+          <td>{{ order.price}} €</td>
+          <td>
+            <label class="checkbox" *ngIf="!order.desc_size" (change)="isXLMenu($event, order)">
+              <input type="checkbox">
+              Menu XL
+            </label>
+          </td>
+          <td><button class="button" (click)="deleteRow(order)">Supprimer</button></td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <td><b>Total : </b></td>
+        <td>{{ getTotalPrice() }} €</td>
+      </tfoot>
+    </table>
+  </div>
+</section>

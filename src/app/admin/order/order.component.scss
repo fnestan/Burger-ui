@@ -1,0 +1,11 @@
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  gap: 10px 10px;
+  grid-template-areas: ". . . .";
+}
+
+.card {
+  margin: 1.05rem 0 1.05rem 0;
+}

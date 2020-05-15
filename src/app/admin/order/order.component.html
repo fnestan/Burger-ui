@@ -1,0 +1,199 @@
+<section class="section">
+  <div class="container">
+    <h4 class="title is-4">Commandes</h4>
+    <div class="grid-container">
+      <div>
+        <h3>Commandes non payées</h3>
+        <br>
+        <div class="card" *ngFor="let order of notPaidOrders">
+          <header class="card-header">
+            <p class="card-header-title">
+              Commande n°{{ order.orderNum }}
+            </p>
+          </header>
+          <div class="card-content">
+            <div class="content">
+              <h6 class="title is-6" *ngIf="order.menuOrders && order.menuOrders.length > 0">
+                {{ order.menuOrders.length }}
+                menus
+              </h6>
+              <article class="media" *ngFor="let menu of order.menuOrders">
+                <div class="media-content">
+                  <div class="content">
+                    <p>
+                      <strong>{{ menu.menu.name}}</strong> <small>({{ menu.price }} €)</small>
+                      <br>
+                    </p>
+                    <p>Ingrédients à retirer : {{ menu.ingredientRemove }}</p>
+                  </div>
+                </div>
+              </article>
+              <h6 class="title is-6" *ngIf="order.productLineOrders && order.productLineOrders.length > 0">
+                {{ order.productLineOrders.length  }}
+                produits seuls
+              </h6>
+              <article class="media" *ngFor="let prd of order.productLineOrders">
+                <div class="media-content">
+                  <div class="content">
+                    <p>
+                      <strong>{{ prd.productLine.desc_size}}</strong> <small>({{ prd.productLine.price }} €)</small>
+                      <br>
+                    </p>
+                    <p>Ingrédients à retirer : {{ prd.ingredientRemove }}</p>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+          <footer class="card-footer">
+            <button class="button card-footer-item" (click)="orderIsPaid(order.id)">Payer</button>
+          </footer>
+        </div>
+      </div>
+      <div>
+        <h3>Commandes à prendre à charge</h3>
+        <br>
+        <div class="card" *ngFor="let order of notTakenInChargeOrders">
+          <header class="card-header">
+            <p class="card-header-title">
+              Commande n°{{ order.orderNum }}
+            </p>
+          </header>
+          <div class="card-content">
+            <div class="content">
+              <h6 class="title is-6" *ngIf="order.menuOrders && order.menuOrders.length > 0">
+                {{ order.menuOrders.length }}
+                menus
+              </h6>
+              <article class="media" *ngFor="let menu of order.menuOrders">
+                <div class="media-content">
+                  <div class="content">
+                    <p>
+                      <strong>{{ menu.menu.name}}</strong> <small>({{ menu.price }} €)</small>
+                      <br>
+                    </p>
+                    <p>Ingrédients à retirer : {{ menu.ingredientRemove }}</p>
+                  </div>
+                </div>
+              </article>
+              <h6 class="title is-6" *ngIf="order.productLineOrders && order.productLineOrders.length > 0">
+                {{ order.productLineOrders.length  }}
+                produits seuls
+              </h6>
+              <article class="media" *ngFor="let prd of order.productLineOrders">
+                <div class="media-content">
+                  <div class="content">
+                    <p>
+                      <strong>{{ prd.productLine.desc_size}}</strong> <small>({{ prd.productLine.price }} €)</small>
+                      <br>
+                    </p>
+                    <p>Ingrédients à retirer : {{ prd.ingredientRemove }}</p>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+          <footer class="card-footer">
+            <button class="button card-footer-item" (click)="takeInCharge(order.id)">Prendre en charge</button>
+          </footer>
+        </div>
+      </div>
+      <div>
+        <h3>Commandes prises en charge</h3>
+        <br>
+        <div class="card" *ngFor="let order of takenInChargeOrders">
+          <header class="card-header">
+            <p class="card-header-title">
+              Commande n°{{ order.orderNum }}
+            </p>
+          </header>
+          <div class="card-content">
+            <div class="content">
+              <h6 class="title is-6" *ngIf="order.menuOrders && order.menuOrders.length > 0">
+                {{ order.menuOrders.length }}
+                menus
+              </h6>
+              <article class="media" *ngFor="let menu of order.menuOrders">
+                <div class="media-content">
+                  <div class="content">
+                    <p>
+                      <strong>{{ menu.menu.name}}</strong> <small>({{ menu.price }} €)</small>
+                      <br>
+                    </p>
+                    <p>Ingrédients à retirer : {{ menu.ingredientRemove }}</p>
+                  </div>
+                </div>
+              </article>
+              <h6 class="title is-6" *ngIf="order.productLineOrders && order.productLineOrders.length > 0">
+                {{ order.productLineOrders.length  }}
+                produits seuls
+              </h6>
+              <article class="media" *ngFor="let prd of order.productLineOrders">
+                <div class="media-content">
+                  <div class="content">
+                    <p>
+                      <strong>{{ prd.productLine.desc_size}}</strong> <small>({{ prd.productLine.price }} €)</small>
+                      <br>
+                    </p>
+                    <p>Ingrédients à retirer : {{ prd.ingredientRemove }}</p>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+          <footer class="card-footer">
+            <button class="button card-footer-item" (click)="makeReady(order.id)">Terminer la commande</button>
+          </footer>
+        </div>
+      </div>
+      <div>
+        <h3>Commandes prêtes</h3>
+        <br>
+        <div class="card" *ngFor="let order of readyOrders">
+          <header class="card-header">
+            <p class="card-header-title">
+              Commande n°{{ order.orderNum }}
+            </p>
+          </header>
+          <div class="card-content">
+            <div class="content">
+              <h6 class="title is-6" *ngIf="order.menuOrders && order.menuOrders.length > 0">
+                {{ order.menuOrders.length }}
+                menus
+              </h6>
+              <article class="media" *ngFor="let menu of order.menuOrders">
+                <div class="media-content">
+                  <div class="content">
+                    <p>
+                      <strong>{{ menu.menu.name}}</strong> <small>({{ menu.price }} €)</small>
+                      <br>
+                    </p>
+                    <p>Ingrédients à retirer : {{ menu.ingredientRemove }}</p>
+                  </div>
+                </div>
+              </article>
+              <h6 class="title is-6" *ngIf="order.productLineOrders && order.productLineOrders.length > 0">
+                {{ order.productLineOrders.length  }}
+                produits seuls
+              </h6>
+              <article class="media" *ngFor="let prd of order.productLineOrders">
+                <div class="media-content">
+                  <div class="content">
+                    <p>
+                      <strong>{{ prd.productLine.desc_size}}</strong> <small>({{ prd.productLine.price }} €)</small>
+                      <br>
+                    </p>
+                    <p>Ingrédients à retirer : {{ prd.ingredientRemove }}</p>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+          <footer class="card-footer">
+            <button class="button card-footer-item" (click)="deliverOrder(order.id)">Remise de la commande</button>
+          </footer>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

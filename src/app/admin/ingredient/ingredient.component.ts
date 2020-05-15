@@ -87,12 +87,5 @@ export class IngredientComponent implements OnInit {
     this.ingredientService.updateIngredient(token, (event.rowData as FormData), event.rowData.id).subscribe(() => this.getAllIngredients());
   }
 
-  addForward() {
-    const modal = this.ngxSmartModalService.create('ingredient', ForwardCreationComponent);
-    modal.onCloseFinished.subscribe(() => {
-      // TODO : Update grid
-    });
-    modal.open();
-  }
 }
 

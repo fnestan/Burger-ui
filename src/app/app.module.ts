@@ -20,6 +20,10 @@ import {ToastrModule} from 'ngx-toastr';
 import { ForwardCreationComponent } from './admin/forward-creation/forward-creation.component';
 import { IngredientComponent } from './admin/ingredient/ingredient.component';
 import { IngredientCreationComponent } from './admin/ingredient-creation/ingredient-creation.component';
+import { OrderComponent } from './admin/order/order.component';
+import { MenuBarComponent } from './menu-bar/menu-bar.component';
+import {NgbCarouselModule} from '@ng-bootstrap/ng-bootstrap';
+import { CartComponent } from './cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +31,9 @@ import { IngredientCreationComponent } from './admin/ingredient-creation/ingredi
     HomeComponent,
     MenuComponent,
     LoginComponent,
+    OrderComponent,
+    MenuBarComponent,
+    CartComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,8 +43,7 @@ import { IngredientCreationComponent } from './admin/ingredient-creation/ingredi
     FormsModule,
     ReactiveFormsModule,
     NgxSmartModalModule.forRoot(),
-    ToastrModule.forRoot()
-
+    ToastrModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]

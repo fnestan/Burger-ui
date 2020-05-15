@@ -13,7 +13,7 @@ export class MenuService {
 
   getAllMenu(token: string): Observable<Menu[]> {
     const headers = {authorization: 'Bearer ' + token};
-    return this.httpClient.get<Menu[]>('http://localhost:3000/menus/');
+    return this.httpClient.get<Menu[]>('http://localhost:3000/menus' , {headers});
 
   }
 
